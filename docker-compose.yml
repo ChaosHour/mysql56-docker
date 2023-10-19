@@ -1,0 +1,69 @@
+version: '3'
+
+services:
+  primary:
+    build:
+      context: .
+      dockerfile: Dockerfile.primary
+    ports:
+      - "3306:3306"
+    volumes:
+      - primary-data:/var/lib/mysql
+      - primary-logs:/var/log/mysql
+      - ./primary:/docker-entrypoint-initdb.d
+    #  - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    networks:
+      db-network:
+        ipv4_address: 172.22.0.3
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+
+  replica:
+    build:
+      context: .
+      dockerfile: Dockerfile.replica
+    ports:
+      - "3307:3306"
+    volumes:
+      - replica-data:/var/lib/mysql
+      - replica-logs:/var/log/mysql
+      - ./replica:/docker-entrypoint-initdb.d
+     # - ./sql:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_MASTER_HOST: 172.22.0.3
+      MYSQL_MASTER_PORT: 3306
+      MYSQL_REPLICA_USER: repl
+      MYSQL_REPLICA_PASSWORD: ${MYSQL_REPLICA_PASSWORD}
+    networks:
+      db-network:
+        ipv4_address: 172.22.0.2
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+    depends_on:
+      - primary
+
+networks:
+  db-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+
+
+volumes:
+  primary-data:
+  primary-logs:
+  replica-data:
+  replica-logs:
