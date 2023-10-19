@@ -1,4 +1,4 @@
-# MySQL 8 Docker, with primary and replica 
+# Percona's Percona-Server56 Docker, with primary and replica 
 
 
 ## How To use this project, a little prep work is needed. 
