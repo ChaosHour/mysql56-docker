@@ -13,8 +13,9 @@ MYSQL_REPLICA_PASSWORD=slAv3
 
 ## Replica password
 ```bash
-The replica password used for testing is in the replica.sql file. I would recommend changing this password with an alter user command.
-An example of this is in the primary.sql file.
+This is a quick and dirty project for testing.  Change or keep the passwords.
+No very secure, but it is a test project.
+
 ```
 
 
