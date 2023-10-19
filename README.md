@@ -108,3 +108,12 @@ mysql --defaults-group-suffix=_replica1 -e "show slave status\G" | egrep "Slave_
 
 ```
 
+## When done, clean up
+```bash
+mysql56-docker on  main via 🐳 desktop-linux 
+❯ docker-compose down          
+[+] Running 3/2
+ ✔ Container mysql56-docker-replica-1  Removed                                                                                                           2.3s 
+ ✔ Container mysql56-docker-primary-1  Removed                                                                                                           4.6s 
+ ✔ Network mysql56-docker_db-network   Removed                                                                                                           0.1s
+```
