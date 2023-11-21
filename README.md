@@ -1,5 +1,24 @@
 # Percona's Percona-Server56 Docker, with primary and replica 
 
+## Do not use this project for anything other than testing.  It is not secure. It is not production ready.  It is not for anything other than testing.
+
+> I needed to test ProxySQL and needed a quick and dirty project to do so.  This is it.  It is not secure.  It is not production ready.  It is not for anything other than testing.
+
+
+Passwords are insecure and only used for testing.
+
+
+## I am using this project to test the following:
+```bash
+[client_proxysql1]
+user=klarsen
+password=ou812
+host=192.168.50.75
+port=6033
+default-character-set  =  latin1
+
+A python script is inlcuded that will insert data into 2 tables for testing ProxySQL.
+```
 
 ## How To use this project, a little prep work is needed. 
 ```Go
