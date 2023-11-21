@@ -3,6 +3,7 @@ GRANT ALL PRIVILEGES ON *.* TO `flyway`@`%` IDENTIFIED BY PASSWORD '*DBC951CE0DF
 CREATE DATABASE IF NOT EXISTS chaos;
 
 \u chaos
+DROP TABLE IF EXISTS test_table;
 DROP TABLE IF EXISTS my_table;
 DROP TABLE IF EXISTS my_log;
 DROP TABLE IF EXISTS employees;
@@ -11,6 +12,13 @@ DROP PROCEDURE IF EXISTS my_proc_new;
 DROP event IF EXISTS my_event;
 DROP VIEW IF EXISTS my_view;
 DROP VIEW IF EXISTS my_view2;
+
+-- Create a table for testing latin1 
+CREATE TABLE test_table (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    additional_info TEXT
+);
 
 -- Create a table
 
