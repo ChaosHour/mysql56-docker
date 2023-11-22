@@ -1,6 +1,7 @@
 FROM ubuntu:latest
 
-LABEL org.opencontainers.image.authors="ChaosHour"  
+LABEL org.opencontainers.image.authors="Ashraf Sharif <ashraf@severalnines.com>, ChaosHour"
+# modified from https://github.com/severalnines/proxysql-docker
 
 ENV VERSION 2.5.5
 

@@ -1,3 +1,6 @@
+# Modified some, but borrowed from: https://github.com/severalnines/proxysql-docker
+
+
 datadir="/var/lib/proxysql"
 
 admin_variables=
