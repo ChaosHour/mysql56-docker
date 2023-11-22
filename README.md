@@ -9,11 +9,13 @@
 
 ## How To use this project, a little prep work is needed. 
 
-# Note: 
-I know the replica password is not politically correct, I will change it and update that.
+
 
 ```Go
 Working with Docker creds:
+
+Note: 
+I will change the passwords in the next few days.
 
 Create a file called .env in the root of the project and add the following:
 MYSQL_ROOT_PASSWORD=s3cr3t
@@ -232,7 +234,8 @@ mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@por
 ```
 
 ## Using go-utf8 to validate the data
-(go-utf8)[https://github.com/ChaosHour/go-utf8]
+- [go-utf8](https://github.com/ChaosHour/go-utf8)
+
 
 ```bash 
 go-utf8 -s 192.168.50.75 -d chaos
