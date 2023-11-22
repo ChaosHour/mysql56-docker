@@ -2,12 +2,16 @@
 
 
 
-## Do not use this project for anything other than testing. Unless you clean it up.
+## Do not use this project for anything other than testing.
 
 
 
 
 ## How To use this project, a little prep work is needed. 
+
+# Note: 
+I know the replica password is not politically correct, I will change it and update that.
+
 ```Go
 Working with Docker creds:
 
