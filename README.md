@@ -203,7 +203,7 @@ T 2023/11/22 04:34:57.286048 192.168.65.1:34066 -> 172.22.0.4:6033 [AP] #156
 ```bash
 mysql56-docker on  main via 🐳 desktop-linux via 🐍 v3.11.5 (mysql56-docker) 
 ❯ ./test.py                           
-Connected to server 192.168.100.75 on port 6033
+Connected to server 192.168.50.75 on port 6033
 Current character set: latin1 and collation: latin1_swedish_ci
 [(1,)]
 Attempting to connect to the database with character set latin1 and collation latin1_swedish_ci
