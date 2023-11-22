@@ -223,12 +223,13 @@ mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@por
 +--------------+-----------------+--------+
 | ab1fe00558db | 5.6.51-91.0-log |   3306 |
 +--------------+-----------------+--------+
-+----+------------------------------------------------------------------------------------------------------+
-| id | name   | salary | id | name   | additional_info                                                                                                                   +----+--------+--------+----+--------
++----+----------------------------------------------------------------------------------------------------------------------------+
+| id | name   | salary | id | name   | additional_info |
++----+--------+--------+----+--------------------------
 | 62 | Chaos2 |   5000 | 62 | Chaos2 | Some additional info with German umlauts: � , , � Here are some words: schn, fr�lein, gr�n |
 | 63 | Chaos2 |   5000 | 62 | Chaos2 | Some additional info with German umlauts: � , , � Here are some words: schn, fr�lein, gr�n |
 | 64 | Chaos2 |   5000 | 62 | Chaos2 | Some additional info with German umlauts: � , , � Here are some words: schn, fr�lein, gr�n |
-+----+----+-------------------------------------------------------------------------------------------------+
++----+----+-----------------------------------------------------------------------------------------------------------------------+
 ```
 
 ## Using go-utf8 to validate the data
