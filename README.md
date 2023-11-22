@@ -55,12 +55,12 @@ mysql56-docker-replica-1    mysql56-docker-replica    "/docker-entrypoint.…"  
 [client_primary1]
 user=root
 password=xxxx
-host=192.168.50.50
+host=192.168.50.75
 port=3306
 [client_replica1]
 user=root
 password=xxxx
-host=192.168.50.50
+host=192.168.50.75
 port=3307
 [client_proxysql1]
 user=klarsen
