@@ -38,7 +38,7 @@ No very secure, but it is a test project.
 ```
 
 
-## build the docker image
+## build the docker images and run them.
 ```bash
 
 make up
