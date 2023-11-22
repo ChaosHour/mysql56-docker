@@ -260,6 +260,102 @@ mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@por
 ```
 
 
+## Added test with default-character-set=latin1 and then with out that defaults to the server default
+```bash
+mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@port; show variables like 'char%'; show variables like 'collation%'"
++--------------+-----------------+--------+
+| @@hostname   | @@version       | @@port |
++--------------+-----------------+--------+
+| ab1fe00558db | 5.6.51-91.0-log |   3306 |
++--------------+-----------------+--------+
++--------------------------+-------------------------------------+
+| Variable_name            | Value                               |
++--------------------------+-------------------------------------+
+| character_set_client     | latin1                              |
+| character_set_connection | latin1                              |
+| character_set_database   | utf8                                |
+| character_set_filesystem | binary                              |
+| character_set_results    | latin1                              |
+| character_set_server     | utf8                                |
+| character_set_system     | utf8                                |
+| character_sets_dir       | /usr/share/percona-server/charsets/ |
++--------------------------+-------------------------------------+
++----------------------+-------------------+
+| Variable_name        | Value             |
++----------------------+-------------------+
+| collation_connection | latin1_swedish_ci |
+| collation_database   | utf8_general_ci   |
+| collation_server     | utf8_unicode_ci   |
++----------------------+-------------------+
+
+
+vi  ~/.my.cnf
+
+
+mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@port; show variables like 'char%'; show variables like 'collation%'"
++--------------+-----------------+--------+
+| @@hostname   | @@version       | @@port |
++--------------+-----------------+--------+
+| ab1fe00558db | 5.6.51-91.0-log |   3306 |
++--------------+-----------------+--------+
++--------------------------+-------------------------------------+
+| Variable_name            | Value                               |
++--------------------------+-------------------------------------+
+| character_set_client     | utf8mb4                             |
+| character_set_connection | utf8mb4                             |
+| character_set_database   | utf8                                |
+| character_set_filesystem | binary                              |
+| character_set_results    | utf8mb4                             |
+| character_set_server     | utf8                                |
+| character_set_system     | utf8                                |
+| character_sets_dir       | /usr/share/percona-server/charsets/ |
++--------------------------+-------------------------------------+
++----------------------+--------------------+
+| Variable_name        | Value              |
++----------------------+--------------------+
+| collation_connection | utf8mb4_general_ci |
+| collation_database   | utf8_general_ci    |
+| collation_server     | utf8_unicode_ci    |
++----------------------+--------------------+
+
+
+docker exec -it mysql56-docker-proxysql-1 bash
+root@a41e1300f8a4:/# ngrep -q -t -W byline -i 'SELECT|INSERT|UPDATE|SET' port 6033
+interface: eth0 (172.22.0.0/255.255.0.0)
+filter: ( port 6033 ) and ((ip || ip6) || (vlan && (ip || ip6)))
+match (JIT): SELECT|INSERT|UPDATE|SET
+
+T 2023/11/22 05:48:45.100716 192.168.65.1:37684 -> 172.22.0.4:6033 [AP] #10
+!....select @@version_comment limit 1
+
+T 2023/11/22 05:48:45.101142 192.168.65.1:37684 -> 172.22.0.4:6033 [AP] #13
+
+....select $$
+
+T 2023/11/22 05:48:45.105119 192.168.65.1:37684 -> 172.22.0.4:6033 [AP] #16
+%....select @@hostname, @@version, @@port
+
+T 2023/11/22 05:48:45.107296 172.22.0.4:6033 -> 192.168.65.1:37684 [AP] #20
+.....T....def.information_schema.VARIABLES.VARIABLES.Variable_name.VARIABLE_NAME...@.........M....def.information_schema.VARIABLES.VARIABLES.Value.VARIABLE_VALUE..................character_set_client.latin1 ....character_set_connection.latin1.....character_set_database.utf8 ....character_set_filesystem.binary.....character_set_results.latin1.....character_set_server.utf8...
+.character_set_system.utf87....character_sets_dir#/usr/share/percona-server/charsets/......."...
+
+T 2023/11/22 05:49:25.886378 192.168.65.1:37717 -> 172.22.0.4:6033 [AP] #38
+!....select @@version_comment limit 1
+
+T 2023/11/22 05:49:25.886821 192.168.65.1:37717 -> 172.22.0.4:6033 [AP] #41
+
+....select $$
+
+T 2023/11/22 05:49:25.887867 192.168.65.1:37717 -> 172.22.0.4:6033 [AP] #44
+%....select @@hostname, @@version, @@port
+
+T 2023/11/22 05:49:25.889461 172.22.0.4:6033 -> 192.168.65.1:37717 [AP] #48
+.....T....def.information_schema.VARIABLES.VARIABLES.Variable_name.VARIABLE_NAME.-...........M....def.information_schema.VARIABLES.VARIABLES.Value.VARIABLE_VALUE.-................character_set_client.utf8mb4!....character_set_connection.utf8mb4.....character_set_database.utf8 ....character_set_filesystem.binary.....character_set_results.utf8mb4.....character_set_server.utf8...
+.character_set_system.utf87....character_sets_dir#/usr/share/percona-server/charsets/......."...
+```
+
+
+
 ## When done, clean up
 ```bash
 
