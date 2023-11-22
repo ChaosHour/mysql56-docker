@@ -50,7 +50,7 @@ mysql56-docker-replica-1    mysql56-docker-replica    "/docker-entrypoint.…"  
 ```
 
 
-## Using in my ~/.my.cnf for testing
+## Used in my ~/.my.cnf for testing
 ```bash
 [client_primary1]
 user=root
