@@ -172,7 +172,7 @@ transaction_persistent: 1
 2 rows in set (0.00 sec)
 ```
 
-## Time for testing... in the PrcxySQL Container we will start ngrep to listem to the traffic
+## Time for testing... in the ProxySQL Container we will start ngrep to listem to the traffic
 ```bash
 root@a41e1300f8a4:/# ngrep -q -t -W byline -i 'SELECT|INSERT|UPDATE|SET' port 6033
 interface: eth0 (172.22.0.0/255.255.0.0)
