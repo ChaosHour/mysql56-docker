@@ -2,8 +2,6 @@
 
 
 
-## Do not use this project for anything other than testing.
-
 
 
 
@@ -25,8 +23,8 @@ MYSQL_REPLICA_PASSWORD=slAv3
 
 ## Replica password
 ```bash
-This is a quick and dirty project for testing.  Change or keep the passwords.
-No very secure, but it is a test project.
+This is a quick and dirty project for testing.  Change the passwords.
+Not very secure, but it is a test project.
 
 ```
 
