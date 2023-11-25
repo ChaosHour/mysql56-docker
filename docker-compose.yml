@@ -11,7 +11,6 @@ services:
       - primary-data:/var/lib/mysql
       - primary-logs:/var/log/mysql
       - ./primary:/docker-entrypoint-initdb.d
-    #  - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     networks:
@@ -23,6 +22,7 @@ services:
       timeout: 30s
       retries: 5
       start_period: 30s
+    restart: unless-stopped
 
   replica:
     build:
@@ -34,7 +34,6 @@ services:
       - replica-data:/var/lib/mysql
       - replica-logs:/var/log/mysql
       - ./replica:/docker-entrypoint-initdb.d
-     # - ./sql:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_MASTER_HOST: 172.22.0.3
@@ -51,7 +50,9 @@ services:
       retries: 5
       start_period: 30s
     depends_on:
-      - primary
+       primary:
+          condition: service_healthy
+    restart: unless-stopped
 
   proxysql:
     build:
@@ -62,15 +63,16 @@ services:
       - "6033:6033"
       - "6080:6080"
     volumes:
-    #  - proxysql-data:/var/lib/proxysql
-    #  - /root/proxysql/proxysql.cnf:/etc/proxysql.cnf
       - ./proxysql-config/proxysql.cnf:/etc/proxysql.cnf
     networks:
       db-network:
         ipv4_address: 172.22.0.4
     depends_on:
-      - primary
-      - replica
+        primary:
+          condition: service_healthy
+        replica: 
+          condition: service_healthy
+    restart: unless-stopped
 
 networks:
   db-network:
@@ -79,7 +81,6 @@ networks:
       driver: default
       config:
         - subnet: 172.22.0.0/16
-
 
 volumes:
   primary-data:
