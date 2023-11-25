@@ -53,3 +53,9 @@ MASTER_LOG_FILE='mysql-bin.000001',
 MASTER_LOG_POS=0; 
 SELECT SLEEP (3); 
 START SLAVE; 
+
+-- stop replica and try again:
+-- STOP SLAVE;
+-- SET GLOBAL sql_slave_skip_counter=1;
+-- SELECT SLEEP (5);
+-- START SLAVE;
