@@ -34,10 +34,22 @@ Not very secure, but it is a test project.
 
 make up
 docker-compose up -d --build --wait
-✔ Network mysql56-docker_db-network    Created                                                                                                                                  0.0s
- ✔ Container mysql56-docker-primary-1   Healthy                                                                                                                                  0.0s
- ✔ Container mysql56-docker-replica-1   Healthy                                                                                                                                  0.0s
- ✔ Container mysql56-docker-proxysql-1  Healthy                                                                                                                                  0.0s
+ ✔ Container mysql56-docker-primary-1   Healthy                                                                                                                    0.0s 
+ ✔ Container mysql56-docker-replica-1   Healthy                                                                                                                    0.0s 
+ ✔ Container mysql56-docker-proxysql-1  Healthy                                                                                                                    0.0s 
+sleep 10
+make start_repl
+zsh -c ./start_repl.sh
++------------+
+| SLEEP (10) |
++------------+
+|          0 |
++------------+
+                  Master_Host: 172.22.0.3
+             Slave_IO_Running: Yes
+            Slave_SQL_Running: Yes
+        Seconds_Behind_Master: 0
+                                                                                          0.0s
 ```
 
 ## Check the status of the containers
