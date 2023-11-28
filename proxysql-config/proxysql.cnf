@@ -68,20 +68,12 @@ mysql_query_rules =
         match_pattern=".*"
         destination_hostgroup=10
         apply=1
-    },
-    {
-        rule_id: 1,
-        active: 1,
-        match_pattern: "(?i)^SET NAMES.*latin1",
-        destination_hostgroup=10,
-        negate_match: 0,
-        apply: "REJECT",
-        comment: "Reject connections with latin1 character set"
-} 
+    }
 )
 
 mysql_users =
 (
     { username = "repl" , password = "slAv3", default_hostgroup = 20 , active = 1 },
-    { username = "klarsen" , password = "ou812", default_hostgroup = 10 , active = 1 }
+    { username = "klarsen" , password = "ou812", default_hostgroup = 10 , active = 1 },
+    { username = "flyway" , password = "OxFF29szWNQ962hUa0Toez3", default_hostgroup = 10 , active = 1 }
 )

@@ -52,7 +52,7 @@ RUN /usr/bin/install -m 0775 -o mysql -g root -d /etc/my.cnf.d /var/lib/mysql /v
     && echo "thp-setting=never" >> /etc/my.cnf \
 # don't reverse lookup hostnames, they are usually another container
     && echo '!includedir /etc/my.cnf.d' >> /etc/my.cnf \
-    && printf '[mysqld]\nskip-host-cache\nskip-name-resolve\ncharacter-set-server=utf8\ncollation-server=utf8_unicode_ci\nskip-character-set-client-handshake\n' > /etc/my.cnf.d/docker.cnf \
+    && printf "[mysqld]\nskip-host-cache\nskip-name-resolve\ncharacter-set-server=utf8\ncollation-server=utf8_unicode_ci\nskip-character-set-client-handshake\ninit_connect='SET NAMES utf8mb4'\n" > /etc/my.cnf.d/docker.cnf \
     #&& printf '[mysqld]\nskip-host-cache\nskip-name-resolve\n' > /etc/my.cnf.d/docker.cnf \
 # TokuDB modifications
     && /usr/bin/install -m 0664 -o mysql -g root /dev/null /etc/sysconfig/mysql \

@@ -41,5 +41,16 @@ if [ $MONITOR_CONFIG_CHANGE ]; then
 	done
 fi
 
+#Only do this if it does not exist:
+if [ ! -d /var/lib/proxysql ]; then
+	mkdir -p /var/log/proxysql && touch /var/log/proxysql/proxysql.log && chown -R proxysql:proxysql /var/log/proxysql
+fi
+#pass in as argument to be able to tail -f the log file: 
+#--idle-threads -D /var/lib/proxysql -c /etc/proxysql.cnf &> /var/log/proxysql/proxysql.log
+
 # Start ProxySQL with PID 1
 exec proxysql -f $CMDARG
+
+
+
+

@@ -11,7 +11,7 @@ from termcolor import colored
 def connect_to_database(charset, collation):
     try:
         # Connect to the database add a port to connect to a remote server port=6033
-        cnx = mysql.connector.connect(user='klarsen', password='ou812', host='192.168.50.75', port=6033, database='chaos', charset=charset, collation=collation) # Add the host name
+        cnx = mysql.connector.connect(user='flyway', password='OxFF29szWNQ962hUa0Toez3', host='192.168.50.75', port=6033, database='chaos', charset=charset, collation=collation) # Add the host name
 
         color = 'green' if charset == 'utf8' else 'red'
         print(colored(f"Connected to server {cnx.server_host} on port {cnx.server_port}", color))
@@ -50,7 +50,7 @@ def add_employee(name, salary, charset, collation):
     try:
         print(f"Attempting to connect to the database with character set {charset} and collation {collation}")
         # Connect to the database
-        cnx = mysql.connector.connect(user='klarsen', password='ou812', host='192.168.50.75', port=6033, database='chaos', charset=charset, collation=collation)
+        cnx = mysql.connector.connect(user='flyway', password='OxFF29szWNQ962hUa0Toez3', host='192.168.50.75', port=6033, database='chaos', charset=charset, collation=collation)
 
         color = 'green' if charset == 'utf8' else 'red'
         print(colored(f"Attempting to connect to the database with character set {charset} and collation {collation}", color))

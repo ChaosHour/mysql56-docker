@@ -5,14 +5,15 @@ LABEL org.opencontainers.image.authors="Ashraf Sharif <ashraf@severalnines.com>,
 
 ENV VERSION 2.5.5
 
-
-
 RUN apt-get update && \
-    apt-get install -y wget mysql-client inotify-tools procps ngrep && \
+    apt-get install -y wget mysql-client inotify-tools procps ngrep python3 python3-pip vim iproute2 && \
     wget https://github.com/sysown/proxysql/releases/download/v${VERSION}/proxysql_${VERSION}-ubuntu22_amd64.deb -O /opt/proxysql_${VERSION}-ubuntu22_amd64.deb && \
     dpkg -i /opt/proxysql_${VERSION}-ubuntu22_amd64.deb && \
     rm -f /opt/proxysql_${VERSION}-ubuntu22_amd64.deb && \
+    pip3 install mysql-connector-python protobuf scapy termcolor && \
     rm -rf /var/lib/apt/lists/*
+
+COPY proxyadd.py /proxyadd.py
 
 VOLUME /var/lib/proxysql
 EXPOSE 6032 6033 6080
