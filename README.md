@@ -258,82 +258,6 @@ mysql --defaults-group-suffix=_proxysql1 -e "select @@hostname, @@version, @@por
 ```
 
 
-## When you try to use ProxySQL for something that it is not directly, but indirectly you can leverage it just fine.
-```bash 
-At first I was using ngrep then I used Python with ngrep and while that got me half way there, 
-I switch my thinking and used Python to query a table that ProxySQL already uses to record all of the queries going through it.  
-
-I thought surely it would record SET NAMES latin1 as well.  Yes, Yes it does. I use that information, 
-that is quried from the stats.stats_mysql_query_digest and write that to an output.sql that then is applied back to ProxySQL 
-to in a sense, a non routable blackhole with the user to a hostgroup that does not exist.
-
-ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_digest WHERE digest_text LIKE '%SET NAMES latin1%'\G
-*************************** 1. row ***************************
-        hostgroup: 10
-       schemaname: chaos
-         username: flyway
-   client_address:
-           digest: 0x8436fac4a1e9c6f9
-      digest_text: SET NAMES latin1
-       count_star: 14
-       first_seen: 1701218045
-        last_seen: 1701218178
-         sum_time: 0
-         min_time: 0
-         max_time: 0
-sum_rows_affected: 0
-    sum_rows_sent: 0
-1 row in set (0.00 sec) 
-
-ProxySQL Admin >SELECT * FROM stats_mysql_global WHERE variable_name LIKE '%names%';
-+------------------------+----------------+
-| Variable_Name          | Variable_Value |
-+------------------------+----------------+
-| Com_backend_set_names  | 10             |
-| Com_frontend_set_names | 28             |
-+------------------------+----------------+
-2 rows in set (0.01 sec)
-
-ProxySQL Admin >SELECT digest_text, count_star FROM stats.stats_mysql_query_digest ORDER BY count_star DESC LIMIT 5;
-+------------------------------------------------------------+------------+
-| digest_text                                                | count_star |
-+------------------------------------------------------------+------------+
-| set autocommit=?                                           | 14         |
-| SET NAMES latin1                                           | 14         |
-| SET NAMES ? COLLATE ?                                      | 14         |
-| commit                                                     | 7          |
-| INSERT INTO test_table (name,additional_info) VALUES (?,?) | 7          |
-+------------------------------------------------------------+------------+
-5 rows in set (0.01 sec)
-
-ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_rules ORDER BY hits DESC;
-+---------+------+
-| rule_id | hits |
-+---------+------+
-| 1       | 1    |
-| 200     | 1    |
-| 100     | 0    |
-| 300     | 0    |
-+---------+------+
-4 rows in set (0.01 sec)
-
-
-From the Python3 script proxyadd2.py:
-
-root@0d74ce2134f9:/# tail -f nohup.out
-INFO:root:Found 'SET NAMES latin1' for user: flyway
-mysql: [Warning] Using a password on the command line interface can be insecure.
-DEBUG:root:Fetched 1 rows
-DEBUG:root:Writing 1 rows to file
-INFO:root:Found 'SET NAMES latin1' for user: flyway
-mysql: [Warning] Using a password on the command line interface can be insecure.
-DEBUG:root:Fetched 1 rows
-DEBUG:root:Writing 1 rows to file
-INFO:root:Found 'SET NAMES latin1' for user: flyway
-mysql: [Warning] Using a password on the command line interface can be insecure.
-```
-
-
 
 ## Using go-utf8 to validate the data
 - [go-utf8](https://github.com/ChaosHour/go-utf8)
@@ -469,4 +393,80 @@ docker-compose down
  ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.5s
  ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  3.8s
  ✔ Network mysql56-docker_db-network    Removed                                                                                                                                  0.1s
+```
+
+
+## When you try to use ProxySQL for something that it is not directly, but indirectly you can leverage it just fine.
+```bash 
+At first I was using ngrep then I used Python with ngrep and while that got me half way there, 
+I switch my thinking and used Python to query a table that ProxySQL already uses to record all of the queries going through it.  
+
+I thought surely it would record SET NAMES latin1 as well.  Yes, Yes it does. I use that information, 
+that is quried from the stats.stats_mysql_query_digest and write that to an output.sql that then is applied back to ProxySQL 
+to in a sense, a non routable blackhole with the user to a hostgroup that does not exist.
+
+ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_digest WHERE digest_text LIKE '%SET NAMES latin1%'\G
+*************************** 1. row ***************************
+        hostgroup: 10
+       schemaname: chaos
+         username: flyway
+   client_address:
+           digest: 0x8436fac4a1e9c6f9
+      digest_text: SET NAMES latin1
+       count_star: 14
+       first_seen: 1701218045
+        last_seen: 1701218178
+         sum_time: 0
+         min_time: 0
+         max_time: 0
+sum_rows_affected: 0
+    sum_rows_sent: 0
+1 row in set (0.00 sec) 
+
+ProxySQL Admin >SELECT * FROM stats_mysql_global WHERE variable_name LIKE '%names%';
++------------------------+----------------+
+| Variable_Name          | Variable_Value |
++------------------------+----------------+
+| Com_backend_set_names  | 10             |
+| Com_frontend_set_names | 28             |
++------------------------+----------------+
+2 rows in set (0.01 sec)
+
+ProxySQL Admin >SELECT digest_text, count_star FROM stats.stats_mysql_query_digest ORDER BY count_star DESC LIMIT 5;
++------------------------------------------------------------+------------+
+| digest_text                                                | count_star |
++------------------------------------------------------------+------------+
+| set autocommit=?                                           | 14         |
+| SET NAMES latin1                                           | 14         |
+| SET NAMES ? COLLATE ?                                      | 14         |
+| commit                                                     | 7          |
+| INSERT INTO test_table (name,additional_info) VALUES (?,?) | 7          |
++------------------------------------------------------------+------------+
+5 rows in set (0.01 sec)
+
+ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_rules ORDER BY hits DESC;
++---------+------+
+| rule_id | hits |
++---------+------+
+| 1       | 1    |
+| 200     | 1    |
+| 100     | 0    |
+| 300     | 0    |
++---------+------+
+4 rows in set (0.01 sec)
+
+
+From the Python3 script proxyadd2.py:
+
+root@0d74ce2134f9:/# tail -f nohup.out
+INFO:root:Found 'SET NAMES latin1' for user: flyway
+mysql: [Warning] Using a password on the command line interface can be insecure.
+DEBUG:root:Fetched 1 rows
+DEBUG:root:Writing 1 rows to file
+INFO:root:Found 'SET NAMES latin1' for user: flyway
+mysql: [Warning] Using a password on the command line interface can be insecure.
+DEBUG:root:Fetched 1 rows
+DEBUG:root:Writing 1 rows to file
+INFO:root:Found 'SET NAMES latin1' for user: flyway
+mysql: [Warning] Using a password on the command line interface can be insecure.
 ```
