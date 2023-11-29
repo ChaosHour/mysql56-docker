@@ -23,7 +23,7 @@ def write_to_file(rows):
         for row in rows:
             username = row[2]
             logging.info(f"Found 'SET NAMES latin1' for user: {username}")
-            f.write(f"INSERT OR REPLACE INTO mysql_query_rules (rule_id, active, username, match_pattern, destination_hostgroup, apply) VALUES ({rule_id}, 1, '{username}', '^INSERT INTO chaos.|^UPDATE chaos.|^DELETE FROM chaos.', 9999, 1);\n")
+            f.write(f"INSERT INTO mysql_query_rules (rule_id, active, username, match_pattern, destination_hostgroup, apply) VALUES ({rule_id}, 1, '{username}', '^INSERT INTO chaos.|^UPDATE chaos.|^DELETE FROM chaos.', 9999, 1) ON DUPLICATE KEY UPDATE active=VALUES(active), username=VALUES(username), match_pattern=VALUES(match_pattern), destination_hostgroup=VALUES(destination_hostgroup), apply=VALUES(apply);\n")
             rule_id += 1
         f.write("LOAD MYSQL USERS TO RUNTIME;\n")
         f.write("LOAD MYSQL QUERY RULES TO RUNTIME;\n")
