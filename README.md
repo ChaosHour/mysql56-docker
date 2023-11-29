@@ -391,7 +391,7 @@ At first I was using ngrep then I used Python with ngrep and while that got me h
 I switch my thinking and used Python to query a table that ProxySQL already uses to record all of the queries going through it.  
 
 I thought surely it would record SET NAMES latin1 as well.  Yes, Yes it does. I use that information, 
-that is quried from the stats.stats_mysql_query_digest and write that to an output.sql that then is applied back to ProxySQL 
+that is queried from the stats.stats_mysql_query_digest and write that to an output.sql that then is applied back to ProxySQL 
 to in a sense, a non routable blackhole with the user to a hostgroup that does not exist.
 
 ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_digest WHERE digest_text LIKE '%SET NAMES latin1%'\G
