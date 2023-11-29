@@ -66,20 +66,25 @@ mysql56-docker-replica-1    mysql56-docker-replica    "/docker-entrypoint.…"  
 ```bash
 [client_primary1]
 user=root
-password=xxxx
+password=s3cr3t
 host=192.168.50.75
 port=3306
 [client_replica1]
 user=root
-password=xxxx
+password=s3cr3t
 host=192.168.50.75
 port=3307
 [client_proxysql1]
+user=flyway
+password=OxFF29szWNQ962hUa0Toez3
+host=192.168.50.75
+port=6033
+default-character-set  =  latin1
+[client_proxysql]
 user=klarsen
 password=ou812
 host=192.168.50.75
 port=6033
-default-character-set=latin1
 ```
 
 

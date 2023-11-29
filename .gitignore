@@ -1,2 +1,2 @@
 # ignore .env file in git
-.env
+#.env
