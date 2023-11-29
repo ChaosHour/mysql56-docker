@@ -14,3 +14,6 @@ docker exec -it mysql56-docker-replica-1 mysql -u root -ps3cr3t -e "STOP SLAVE;C
 # Wait for the slave to start and show its status
 sleep 1
 mysql --defaults-group-suffix=_replica1 -e "show slave status\G" | egrep "Slave_IO_Running:|Slave_SQL_Running:|Seconds_Behind_Master:|Master_Host:" | grep -v W
+
+# apply the test data
+cat primary/test.sql | mysql --defaults-group-suffix=_primary1

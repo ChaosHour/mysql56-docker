@@ -53,4 +53,3 @@ exec proxysql -f $CMDARG
 
 
 
-

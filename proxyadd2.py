@@ -40,13 +40,18 @@ def feed_sql_to_proxysql():
     os.system("mysql -h 127.0.0.1 -P 6032 -u admin -padmin < output.sql")
 
 def main():
-    setup_logging()
-    cnx = connect_to_proxysql()
-    rows = get_rows(cnx)
-    cnx.close()
-    write_to_file(rows)
-    feed_sql_to_proxysql()
-    time.sleep(60)  # wait for 60 seconds before running again
+    while True:
+        try:
+            setup_logging()
+            cnx = connect_to_proxysql()
+            rows = get_rows(cnx)
+            cnx.close()
+            write_to_file(rows)
+            feed_sql_to_proxysql()
+            time.sleep(60)  # wait for 60 seconds before running again
+        except Exception as e:
+            logging.error(f"An error occurred: {e}")
+            break
 
 if __name__ == "__main__":
     main()
