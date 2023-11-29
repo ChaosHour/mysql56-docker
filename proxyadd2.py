@@ -3,6 +3,7 @@
 import mysql.connector
 import os
 import logging
+import time
 
 def setup_logging():
     logging.basicConfig(filename='latin1_log.txt', level=logging.INFO, format='%(asctime)s %(message)s')
@@ -45,6 +46,7 @@ def main():
     cnx.close()
     write_to_file(rows)
     feed_sql_to_proxysql()
+    time.sleep(60)  # wait for 60 seconds before running again
 
 if __name__ == "__main__":
     main()
