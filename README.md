@@ -383,20 +383,9 @@ T 2023/11/22 05:49:25.889461 172.22.0.4:6033 -> 192.168.65.1:37717 [AP] #48
 
 
 
-## When done, clean up
-```bash
-
-make down
-docker-compose down
-[+] Running 4/3
- ✔ Container mysql56-docker-proxysql-1  Removed                                                                                                                                  0.5s
- ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.5s
- ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  3.8s
- ✔ Network mysql56-docker_db-network    Removed                                                                                                                                  0.1s
-```
 
 
-## When you try to use ProxySQL for something that it is not directly, but indirectly you can leverage it just fine.
+## When you attempt to utilize ProxySQL for a task that it may not have direct capabilities for, but can still achieve indirectly, you can effectively leverage its potential.
 ```bash 
 At first I was using ngrep then I used Python with ngrep and while that got me half way there, 
 I switch my thinking and used Python to query a table that ProxySQL already uses to record all of the queries going through it.  
@@ -470,3 +459,22 @@ DEBUG:root:Writing 1 rows to file
 INFO:root:Found 'SET NAMES latin1' for user: flyway
 mysql: [Warning] Using a password on the command line interface can be insecure.
 ```
+
+
+
+
+
+
+## When done, clean up
+```bash
+
+make down
+docker-compose down
+[+] Running 4/3
+ ✔ Container mysql56-docker-proxysql-1  Removed                                                                                                                                  0.5s
+ ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.5s
+ ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  3.8s
+ ✔ Network mysql56-docker_db-network    Removed                                                                                                                                  0.1s
+```
+
+
