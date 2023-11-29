@@ -468,13 +468,19 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 ## When done, clean up
 ```bash
 
-make down
+make down clean_volumes
 docker-compose down
-[+] Running 4/3
- ✔ Container mysql56-docker-proxysql-1  Removed                                                                                                                                  0.5s
- ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.5s
- ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  3.8s
+[+] Running 4/4
+ ✔ Container mysql56-docker-proxysql-1  Removed                                                                                                                                  0.6s
+ ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.1s
+ ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  4.1s
  ✔ Network mysql56-docker_db-network    Removed                                                                                                                                  0.1s
+docker-compose down -v --remove-orphans
+[+] Running 4/0
+ ✔ Volume mysql56-docker_replica-logs  Removed                                                                                                                                   0.0s
+ ✔ Volume mysql56-docker_primary-logs  Removed                                                                                                                                   0.0s
+ ✔ Volume mysql56-docker_replica-data  Removed                                                                                                                                   0.0s
+ ✔ Volume mysql56-docker_primary-data  Removed                                                                                                                                   0.0s
 ```
 
 
