@@ -447,6 +447,8 @@ ProxySQL Admin >SELECT * FROM stats.stats_mysql_query_rules ORDER BY hits DESC;
 
 From the Python3 script proxyadd2.py:
 
+nohup python3 proxyadd2.py &
+
 root@0d74ce2134f9:/# tail -f nohup.out
 INFO:root:Found 'SET NAMES latin1' for user: flyway
 mysql: [Warning] Using a password on the command line interface can be insecure.
