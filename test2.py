@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 """Python script that can connect to a MySQL database and run through multiple connections passing in different character sets and collations."""
 

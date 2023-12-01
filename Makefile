@@ -1,4 +1,4 @@
-.PHONY: build up down clean_networks clean_volumes start_repl
+.PHONY: build up down down_all start_repl
 
 build:
 	docker-compose build
@@ -11,11 +11,8 @@ up:
 down:
 	docker-compose down
 
-clean_volumes:
-	docker-compose down -v --remove-orphans
-
-clean_networks:
-	docker network prune -f
+down_all:
+	docker-compose down -v --rmi all --remove-orphans
 
 start_repl:
 	zsh -c ./start_repl.sh

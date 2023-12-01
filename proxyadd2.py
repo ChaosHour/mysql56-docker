@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
 import mysql.connector
 import os
@@ -48,7 +49,8 @@ def main():
             cnx.close()
             write_to_file(rows)
             feed_sql_to_proxysql()
-            time.sleep(60)  # wait for 60 seconds before running again
+            #time.sleep(60)  # wait for 60 seconds before running again
+            time.sleep(10)  # wait for 10 seconds before running again
         except Exception as e:
             logging.error(f"An error occurred: {e}")
             break

@@ -470,19 +470,20 @@ mysql: [Warning] Using a password on the command line interface can be insecure.
 ## When done, clean up
 ```bash
 
-make down clean_volumes
-docker-compose down
-[+] Running 4/4
- ✔ Container mysql56-docker-proxysql-1  Removed                                                                                                                                  0.6s
- ✔ Container mysql56-docker-replica-1   Removed                                                                                                                                  2.1s
- ✔ Container mysql56-docker-primary-1   Removed                                                                                                                                  4.1s
- ✔ Network mysql56-docker_db-network    Removed                                                                                                                                  0.1s
-docker-compose down -v --remove-orphans
-[+] Running 4/0
- ✔ Volume mysql56-docker_replica-logs  Removed                                                                                                                                   0.0s
- ✔ Volume mysql56-docker_primary-logs  Removed                                                                                                                                   0.0s
- ✔ Volume mysql56-docker_replica-data  Removed                                                                                                                                   0.0s
- ✔ Volume mysql56-docker_primary-data  Removed                                                                                                                                   0.0s
+make down_all
+docker-compose down -v --rmi all --remove-orphans
+[+] Running 11/11
+ ✔ Container mysql56-docker-proxysql-1   Removed                                                                                                                                 0.6s
+ ✔ Container mysql56-docker-replica-1    Removed                                                                                                                                 2.1s
+ ✔ Container mysql56-docker-primary-1    Removed                                                                                                                                 4.7s
+ ✔ Volume mysql56-docker_replica-data    Removed                                                                                                                                 0.0s
+ ✔ Image mysql56-docker-proxysql:latest  Removed                                                                                                                                 0.0s
+ ✔ Volume mysql56-docker_primary-data    Removed                                                                                                                                 0.0s
+ ✔ Image mysql56-docker-replica:latest   Removed                                                                                                                                 0.0s
+ ✔ Image mysql56-docker-primary:latest   Removed                                                                                                                                 0.0s
+ ✔ Volume mysql56-docker_primary-logs    Removed                                                                                                                                 0.0s
+ ✔ Volume mysql56-docker_replica-logs    Removed                                                                                                                                 0.0s
+ ✔ Network mysql56-docker_db-network     Removed                                                                                                                                 0.1s
 ```
 
 

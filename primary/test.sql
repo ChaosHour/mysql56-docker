@@ -21,13 +21,18 @@ CREATE TABLE test_table (
 
 -- Create a table
 
-CREATE TABLE my_table (col1 INT, col2 INT);
+CREATE TABLE my_table (
+    col1 INT, 
+    col2 INT
+);
 
 -- Create a table for trigger
 
-CREATE TABLE employees (id INT PRIMARY KEY AUTO_INCREMENT,
-                                           name varchar(255),
-                                                salary INT DEFAULT 3000);
+CREATE TABLE employees (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name varchar(255),
+    salary INT DEFAULT 3000
+);
 
 -- Insert some data
 
