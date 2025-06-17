@@ -1,4 +1,4 @@
 mysql-connector-python==9.1.0
-protobuf==4.21.12
+protobuf==4.25.8
 scapy==2.5.0
 termcolor==2.3.0
